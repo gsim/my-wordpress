@@ -1,0 +1,14 @@
+{
+  "offers": [
+    {
+      "version": "6.8.7.1",
+      "php_version": "8.3",
+      "locale": "en_US",
+      "download": "https://github.com/gsim/my-wordpress/archive/refs/heads/main.zip",
+      "packages": {
+        "full": "https://github.com/gsim/my-wordpress/archive/refs/heads/main.zip"
+      },
+      "current": true
+    }
+  ]
+}

@@ -5,6 +5,9 @@
  * @package WordPress
  * @since 2.3.0
  */
+//delete_site_transient('update_core');
+//delete_site_transient('update_plugins');
+//delete_site_transient('update_themes');
 
 /**
  * Check WordPress version against the newest version.
@@ -144,7 +147,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 	}
 
 	//$url      = 'http://api.wordpress.org/core/version-check/1.7/?' . http_build_query( $query, null, '&' );
-	$url = 'https://raw.githubusercontent.com/gsim/my-wordpress/main/version-check.json?' . http_build_query( $query, null, '&' );
+	$url = 'https://raw.githubusercontent.com/gsim/my-wordpress/main/version-check.json?' . http_build_query( $query, '', '&' );
 
 	$http_url = $url;
 	$ssl      = wp_http_supports( array( 'ssl' ) );
