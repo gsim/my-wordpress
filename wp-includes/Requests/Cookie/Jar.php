@@ -60,7 +60,7 @@ class Requests_Cookie_Jar implements ArrayAccess, IteratorAggregate {
 	 * @param string $key Item key
 	 * @return boolean Does the item exist?
 	 */
-	public function offsetExists(mixed $key) : bool{
+	public function offsetExists(mixed $key) : bool {
 		return isset($this->cookies[$key]);
 	}
 
@@ -70,7 +70,7 @@ class Requests_Cookie_Jar implements ArrayAccess, IteratorAggregate {
 	 * @param string $key Item key
 	 * @return string|null Item value (null if offsetExists is false)
 	 */
-	public function offsetGet( mixed $key) : mixed {
+	public function offsetGet(mixed $key) : mixed {
 		if (!isset($this->cookies[$key])) {
 			return null;
 		}

@@ -1,0 +1,132 @@
+a
+{
+    text-decoration:none;
+}
+.menu-toggle {
+    display: none;
+    color: #666;
+}
+.menu-toggle:focus,.menu-toggle:hover
+{
+    border:none;
+    color: #666;
+    border-color: #666;
+    background-color:rgba(0,0,0,0);
+}
+/* Mobile styles */
+.header-inner
+{
+    position: relative;
+}
+    .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Hide menu by default on mobile */
+    .main-navigation {
+        display: none;
+        position:absolute;
+        top:100%;        
+        width:100%;
+        background-color: white;
+        z-index:1000;
+        padding-bottom:30px;
+    }
+
+    /* Show menu when toggle is active */
+    .main-navigation.active {
+        display: block;
+    }
+
+.main-navigation li
+{
+    padding-top:20px;
+    list-style:none;
+}
+.wc-block-product-template__responsive.columns-4
+{
+    grid-template-columns: auto!important;
+}
+.mobile-header-inner
+{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.mobile-header-inner>div
+{
+    justify-self:start;
+}
+.mobile-header-inner button
+{
+    justify-self:end;
+}
+.main-navigation a
+{
+    text-decoration:none;
+    font-size:1.2em;
+    margin-bottom:22px;
+}
+.full-width
+{
+    background-color:var(--light-pink);
+    color: var(--light-pink-font);
+    padding-bottom:30px;
+    padding-top:30px;    
+}
+.full-width-white
+{
+    background-color:#FDFDFD;
+}
+
+
+.desktop .gift-section {
+  display: flex;
+  align-items: center;
+  padding: 40px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.mobile .gift-section {
+  display: flex;
+  align-items: center;
+  padding-left: 0px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.gift-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.gift-heading {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.gift-paragraph {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.gift-features {
+  list-style: none;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.gift-features i {
+  margin-right: 10px;
+}
+.gift-footer
+{
+    margin-top: 20px;
+    font-size: 20px;
+}

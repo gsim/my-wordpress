@@ -1,0 +1,113 @@
+/**
+ * Theme Name:        Gavin For Royal
+ * Theme URI:         https://gjgo.uk
+ * Template: 		  twentytwentyone
+ * Description:       Custom theme for GJGo
+ * Version:           1.0.0
+ * Author:            Gavin Simpson
+ * Author URI:        https://simcoder.co.za
+ * Tags:              block-patterns
+ * Text Domain:       gjgo
+ * Domain Path:       /assets/lang
+ * Tested up to:      5.7
+ * Requires at least: 5.7
+ * Requires PHP:      8.1
+ * License:           GNU General Public License v2.0 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ */
+:root {
+  /* Lavender */
+  --lavender: #E6E6FA;
+  --lavender-rgba: rgba(230, 230, 250, 1);
+  --lavender-font: #4B0082; /* Indigo for contrast */
+
+  /* Peach */
+  --peach: #FFDAB9;
+  --peach-rgba: rgba(255, 218, 185, 1);
+  --peach-font: #8B4513; /* SaddleBrown for depth */
+
+  /* Mint */
+  --mint: #98FF98;
+  --mint-rgba: rgba(152, 255, 152, 1);
+  --mint-font: #006400; /* DarkGreen for readability */
+
+  /* Coral */
+  --coral: #FF7F50;
+  --coral-rgba: rgba(255, 127, 80, 1);
+  --coral-font: #2F4F4F; /* DarkSlateGray for balance */
+
+  /* Baby Blue */
+  --baby-blue: #89CFF0;
+  --baby-blue-rgba: rgba(137, 207, 240, 1);
+  --baby-blue-font: #003366; /* Deep Navy for strong contrast */
+
+  /* Rose Gold */
+  --rose-gold: #B76E79;
+  --rose-gold-rgba: rgba(183, 110, 121, 1);
+  --rose-gold-font: #2C2C2C; /* Charcoal gray for elegance */
+
+/* Light Pink */
+  --light-pink: #FFE4E1;
+  --light-pink-rgba: rgba(255, 228, 225, 1);
+  --light-pink-font: #8B0000; /* DarkRed for a strong, chic contrast */  
+}
+
+footer
+{
+	background-color: var(--rose-gold);
+}
+footer *
+{
+	color: var(--rose-gold-font)!important;
+	font-size: 14px!important;
+	text-align:left;
+	font-family: 'Marcellus SC', serif;
+	font-weight:300;
+    text-decoration:none;
+}
+footer h2.site-title
+{
+	justify-self:left;
+}
+body, .site-header, .main-navigation, .menu-item a
+{
+    font-family: 'Roboto', sans-serif;
+}
+/*.entry-title:not(.woocommerce-page .entry-title)
+{
+    display: none;
+}*/
+h1, h2, h3, h4, h5, h6
+{
+    font-family: 'Marcellus SC', serif;
+    font-weight:400;
+}
+.footer-menu ul
+{
+	list-style:none;
+}
+.mini-cart-toggle
+{
+    position: relative;
+}
+.cart-count
+{
+    display: block;
+    width: 1.2em;
+    height: 1.1em;
+    position: absolute;
+    left:90%;
+    top:-50%;
+    background-color:red;
+    color: white;
+    border-radius:1.1em;
+    text-align:center;
+    line-height:1.2em;
+    text-weight:300;
+    padding:.1em;
+}
+.size38
+{
+    font-size: 38px;
+    margin:0;
+}
