@@ -957,7 +957,7 @@ class WP_REST_Request implements ArrayAccess {
 	 * @param string $offset Parameter name.
 	 * @return bool Whether the parameter is set.
 	 */
-	public function offsetExists( $offset ) {
+	public function offsetExists(mixed $offset ) : bool{
 		$order = $this->get_parameter_order();
 
 		foreach ( $order as $type ) {
@@ -977,7 +977,7 @@ class WP_REST_Request implements ArrayAccess {
 	 * @param string $offset Parameter name.
 	 * @return mixed|null Value if set, null otherwise.
 	 */
-	public function offsetGet( $offset ) {
+	public function offsetGet(mixed $offset ) : mixed{
 		return $this->get_param( $offset );
 	}
 
@@ -989,7 +989,7 @@ class WP_REST_Request implements ArrayAccess {
 	 * @param string $offset Parameter name.
 	 * @param mixed  $value  Parameter value.
 	 */
-	public function offsetSet( $offset, $value ) {
+	public function offsetSet( mixed $offset, mixed $value ) : void{
 		$this->set_param( $offset, $value );
 	}
 
@@ -1000,7 +1000,7 @@ class WP_REST_Request implements ArrayAccess {
 	 *
 	 * @param string $offset Parameter name.
 	 */
-	public function offsetUnset( $offset ) {
+	public function offsetUnset(mixed $offset ) : void{
 		$order = $this->get_parameter_order();
 
 		// Remove the offset from every group.

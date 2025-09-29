@@ -1,0 +1,52 @@
+[28-Sep-2025 23:25:32 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'proweb.wp_options' doesn't exist in /var/www/proweb/wp-includes/wp-db.php:2056
+Stack trace:
+#0 /var/www/proweb/wp-includes/wp-db.php(2056): mysqli_query()
+#1 /var/www/proweb/wp-includes/wp-db.php(1945): wpdb->_do_query()
+#2 /var/www/proweb/wp-includes/wp-db.php(2581): wpdb->query()
+#3 /var/www/proweb/wp-includes/functions.php(1734): wpdb->get_var()
+#4 /var/www/proweb/wp-includes/load.php(752): is_blog_installed()
+#5 /var/www/proweb/wp-settings.php(159): wp_not_installed()
+#6 /var/www/proweb/wp-config.php(99): require_once('...')
+#7 /var/www/proweb/wp-load.php(50): require_once('...')
+#8 /var/www/proweb/wp-admin/install.php(36): require_once('...')
+#9 {main}
+  thrown in /var/www/proweb/wp-includes/wp-db.php on line 2056
+[28-Sep-2025 23:26:08 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'proweb.wp_options' doesn't exist in /var/www/proweb/wp-includes/wp-db.php:2056
+Stack trace:
+#0 /var/www/proweb/wp-includes/wp-db.php(2056): mysqli_query()
+#1 /var/www/proweb/wp-includes/wp-db.php(1945): wpdb->_do_query()
+#2 /var/www/proweb/wp-includes/wp-db.php(2581): wpdb->query()
+#3 /var/www/proweb/wp-includes/functions.php(1734): wpdb->get_var()
+#4 /var/www/proweb/wp-includes/load.php(752): is_blog_installed()
+#5 /var/www/proweb/wp-settings.php(159): wp_not_installed()
+#6 /var/www/proweb/wp-config.php(99): require_once('...')
+#7 /var/www/proweb/wp-load.php(50): require_once('...')
+#8 /var/www/proweb/wp-admin/install.php(38): require_once('...')
+#9 {main}
+  thrown in /var/www/proweb/wp-includes/wp-db.php on line 2056
+[28-Sep-2025 23:26:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'proweb.wp_options' doesn't exist in /var/www/proweb/wp-includes/wp-db.php:2056
+Stack trace:
+#0 /var/www/proweb/wp-includes/wp-db.php(2056): mysqli_query()
+#1 /var/www/proweb/wp-includes/wp-db.php(1945): wpdb->_do_query()
+#2 /var/www/proweb/wp-includes/wp-db.php(2581): wpdb->query()
+#3 /var/www/proweb/wp-includes/functions.php(1734): wpdb->get_var()
+#4 /var/www/proweb/wp-includes/load.php(752): is_blog_installed()
+#5 /var/www/proweb/wp-settings.php(159): wp_not_installed()
+#6 /var/www/proweb/wp-config.php(99): require_once('...')
+#7 /var/www/proweb/wp-load.php(50): require_once('...')
+#8 /var/www/proweb/wp-admin/install.php(38): require_once('...')
+#9 {main}
+  thrown in /var/www/proweb/wp-includes/wp-db.php on line 2056
+[28-Sep-2025 23:26:10 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'proweb.wp_options' doesn't exist in /var/www/proweb/wp-includes/wp-db.php:2056
+Stack trace:
+#0 /var/www/proweb/wp-includes/wp-db.php(2056): mysqli_query()
+#1 /var/www/proweb/wp-includes/wp-db.php(1945): wpdb->_do_query()
+#2 /var/www/proweb/wp-includes/wp-db.php(2581): wpdb->query()
+#3 /var/www/proweb/wp-includes/functions.php(1734): wpdb->get_var()
+#4 /var/www/proweb/wp-includes/load.php(752): is_blog_installed()
+#5 /var/www/proweb/wp-settings.php(159): wp_not_installed()
+#6 /var/www/proweb/wp-config.php(99): require_once('...')
+#7 /var/www/proweb/wp-load.php(50): require_once('...')
+#8 /var/www/proweb/wp-admin/install.php(38): require_once('...')
+#9 {main}
+  thrown in /var/www/proweb/wp-includes/wp-db.php on line 2056

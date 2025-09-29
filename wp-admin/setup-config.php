@@ -38,6 +38,10 @@ require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 /** Load WordPress Translation Installation API */
 require_once ABSPATH . 'wp-admin/includes/translation-install.php';
 
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+error_reporting(E_ALL);
+
 nocache_headers();
 
 // Support wp-config-sample.php one level up, for the develop repo.
@@ -81,6 +85,7 @@ if ( @file_exists( ABSPATH . '../wp-config.php' ) && ! @file_exists( ABSPATH . '
 	);
 }
 
+
 $step = isset( $_GET['step'] ) ? (int) $_GET['step'] : -1;
 
 /**
@@ -119,13 +124,13 @@ function setup_config_display_header( $body_classes = array() ) {
 	<?php
 } // End function setup_config_display_header();
 
+
 $language = '';
 if ( ! empty( $_REQUEST['language'] ) ) {
 	$language = preg_replace( '/[^a-zA-Z0-9_]/', '', $_REQUEST['language'] );
 } elseif ( isset( $GLOBALS['wp_local_package'] ) ) {
 	$language = $GLOBALS['wp_local_package'];
 }
-
 switch ( $step ) {
 	case -1:
 		if ( wp_can_install_language_pack() && empty( $language ) ) {
@@ -255,6 +260,7 @@ switch ( $step ) {
 		break;
 
 	case 2:
+
 		load_default_textdomain( $language );
 		$GLOBALS['wp_locale'] = new WP_Locale();
 
@@ -263,6 +269,7 @@ switch ( $step ) {
 		$pwd    = trim( wp_unslash( $_POST['pwd'] ) );
 		$dbhost = trim( wp_unslash( $_POST['dbhost'] ) );
 		$prefix = trim( wp_unslash( $_POST['prefix'] ) );
+
 
 		$step_1  = 'setup-config.php?step=1';
 		$install = 'install.php';
@@ -288,6 +295,7 @@ switch ( $step ) {
 			wp_die( __( '<strong>Error</strong>: "Table Prefix" can only contain numbers, letters, and underscores.' ) . $tryagain_link );
 		}
 
+
 		// Test the DB connection.
 		/**#@+
 		 *
@@ -303,6 +311,7 @@ switch ( $step ) {
 		unset( $wpdb );
 		require_wp_db();
 
+
 		/*
 		* The wpdb constructor bails when WP_SETUP_CONFIG is set, so we must
 		* fire this manually. We'll fail here if the values are no good.
@@ -313,13 +322,26 @@ switch ( $step ) {
 			wp_die( $wpdb->error->get_error_message() . $tryagain_link );
 		}
 
-		$errors = $wpdb->hide_errors();
-		$wpdb->query( "SELECT $prefix" );
-		$wpdb->show_errors( $errors );
-		if ( ! $wpdb->last_error ) {
-			// MySQL was able to parse the prefix as a value, which we don't want. Bail.
-			wp_die( __( '<strong>Error</strong>: "Table Prefix" is invalid.' ) );
-		}
+// Hide errors while testing
+$errors = $wpdb->hide_errors();
+
+try {
+    // Attempt a "fake" query to validate the prefix
+    $wpdb->query( "SELECT '{$prefix}'" ); // safe: now it's a string literal
+    $query_failed = false;
+} catch ( mysqli_sql_exception $e ) {
+    // The query failed, which is actually what we want
+    $query_failed = true;
+}
+
+// Restore previous error reporting
+$wpdb->show_errors( $errors );
+
+// If query did NOT fail, the prefix is invalid
+if ( ! preg_match( '/^[a-zA-Z0-9_]+$/', $prefix ) ) {
+    wp_die( __( '<strong>Error</strong>: "Table Prefix" is invalid. Only letters, numbers, and underscores are allowed.' ) );
+}
+
 
 		// Generate keys and salts using secure CSPRNG; fallback to API if enabled; further fallback to original wp_generate_password().
 		try {

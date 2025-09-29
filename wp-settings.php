@@ -32,21 +32,23 @@ define( 'WPINC', 'wp-includes' );
 global $wp_version, $wp_db_version, $tinymce_version, $required_php_version, $required_mysql_version, $wp_local_package;
 require ABSPATH . WPINC . '/version.php';
 require ABSPATH . WPINC . '/load.php';
-
 // Check for the required PHP version and for the MySQL extension or a database drop-in.
 wp_check_php_mysql_versions();
 
 // Include files required for initialization.
 require ABSPATH . WPINC . '/class-wp-paused-extensions-storage.php';
+
 require ABSPATH . WPINC . '/class-wp-fatal-error-handler.php';
 require ABSPATH . WPINC . '/class-wp-recovery-mode-cookie-service.php';
 require ABSPATH . WPINC . '/class-wp-recovery-mode-key-service.php';
 require ABSPATH . WPINC . '/class-wp-recovery-mode-link-service.php';
 require ABSPATH . WPINC . '/class-wp-recovery-mode-email-service.php';
 require ABSPATH . WPINC . '/class-wp-recovery-mode.php';
+
 require ABSPATH . WPINC . '/error-protection.php';
 require ABSPATH . WPINC . '/default-constants.php';
 require_once ABSPATH . WPINC . '/plugin.php';
+
 
 /**
  * If not already configured, `$blog_id` will default to 1 in a single site
@@ -132,6 +134,8 @@ wp_start_object_cache();
 
 // Attach the default filters.
 require ABSPATH . WPINC . '/default-filters.php';
+
+
 
 // Initialize multisite if enabled.
 if ( is_multisite() ) {

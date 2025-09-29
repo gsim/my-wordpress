@@ -170,7 +170,7 @@ class WP {
 
 			list( $req_uri ) = explode( '?', $_SERVER['REQUEST_URI'] );
 			$self            = $_SERVER['PHP_SELF'];
-			$home_path       = trim( parse_url( home_url(), PHP_URL_PATH ), '/' );
+			$home_path       = trim( (string) parse_url( home_url(), PHP_URL_PATH ), '/' );
 			$home_path_regex = sprintf( '|^%s|i', preg_quote( $home_path, '|' ) );
 
 			/*

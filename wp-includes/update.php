@@ -143,7 +143,9 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 		$query['channel'] = WP_AUTO_UPDATE_CORE;
 	}
 
-	$url      = 'http://api.wordpress.org/core/version-check/1.7/?' . http_build_query( $query, null, '&' );
+	//$url      = 'http://api.wordpress.org/core/version-check/1.7/?' . http_build_query( $query, null, '&' );
+	$url = 'https://raw.githubusercontent.com/gsim/my-wordpress/main/version-check.json?' . http_build_query( $query, null, '&' );
+
 	$http_url = $url;
 	$ssl      = wp_http_supports( array( 'ssl' ) );
 
@@ -165,17 +167,18 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 
 	$response = wp_remote_post( $url, $options );
 
-	if ( $ssl && is_wp_error( $response ) ) {
-		trigger_error(
-			sprintf(
-				/* translators: %s: Support forums URL. */
-				__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-				__( 'https://wordpress.org/support/forums/' )
-			) . ' ' . __( '(WordPress could not establish a secure connection to WordPress.org. Please contact your server administrator.)' ),
-			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
-		);
-		$response = wp_remote_post( $http_url, $options );
-	}
+if ( $ssl && is_wp_error( $response ) ) {
+    trigger_error(
+        sprintf(
+            /* translators: %s: Support URL. */
+            __( 'An unexpected error occurred. Something may be wrong with the update server or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support page</a>.' ),
+            __( 'https://github.com/gsim/my-wordpress' )
+        ) . ' ' . __( '(WordPress could not establish a secure connection to the update server. Please contact your server administrator.)' ),
+        headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
+    );
+
+    $response = wp_remote_post( $http_url, $options );
+}
 
 	if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
 		return;

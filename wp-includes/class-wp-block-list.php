@@ -72,7 +72,7 @@ class WP_Block_List implements Iterator, ArrayAccess, Countable {
 	 * @param string $index Index of block to check.
 	 * @return bool Whether block exists.
 	 */
-	public function offsetExists( $index ) {
+	public function offsetExists(mixed $index ) : bool{
 		return isset( $this->blocks[ $index ] );
 	}
 
@@ -86,7 +86,7 @@ class WP_Block_List implements Iterator, ArrayAccess, Countable {
 	 * @param string $index Index of block value to retrieve.
 	 * @return mixed|null Block value if exists, or null.
 	 */
-	public function offsetGet( $index ) {
+	public function offsetGet( mixed $index ) :mixed {
 		$block = $this->blocks[ $index ];
 
 		if ( isset( $block ) && is_array( $block ) ) {
@@ -107,7 +107,7 @@ class WP_Block_List implements Iterator, ArrayAccess, Countable {
 	 * @param string $index Index of block value to set.
 	 * @param mixed  $value Block value.
 	 */
-	public function offsetSet( $index, $value ) {
+	public function offsetSet( mixed $index, mixed $value ) : void{
 		if ( is_null( $index ) ) {
 			$this->blocks[] = $value;
 		} else {
@@ -124,7 +124,7 @@ class WP_Block_List implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @param string $index Index of block value to unset.
 	 */
-	public function offsetUnset( $index ) {
+	public function offsetUnset( mixed $index ) : void {
 		unset( $this->blocks[ $index ] );
 	}
 
@@ -135,7 +135,7 @@ class WP_Block_List implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @link https://www.php.net/manual/en/iterator.rewind.php
 	 */
-	public function rewind() {
+	public function rewind(): void {
 		reset( $this->blocks );
 	}
 
@@ -148,7 +148,7 @@ class WP_Block_List implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @return mixed Current element.
 	 */
-	public function current() {
+	public function current(): mixed {
 		return $this->offsetGet( $this->key() );
 	}
 
@@ -161,7 +161,7 @@ class WP_Block_List implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @return mixed Key of the current element.
 	 */
-	public function key() {
+	public function key() : mixed{
 		return key( $this->blocks );
 	}
 
@@ -172,7 +172,7 @@ class WP_Block_List implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @link https://www.php.net/manual/en/iterator.next.php
 	 */
-	public function next() {
+	public function next() : void{
 		next( $this->blocks );
 	}
 
@@ -183,7 +183,7 @@ class WP_Block_List implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @link https://www.php.net/manual/en/iterator.valid.php
 	 */
-	public function valid() {
+	public function valid()  : bool{
 		return null !== key( $this->blocks );
 	}
 
@@ -196,7 +196,7 @@ class WP_Block_List implements Iterator, ArrayAccess, Countable {
 	 *
 	 * @return int Block count.
 	 */
-	public function count() {
+	public function count() : int{
 		return count( $this->blocks );
 	}
 

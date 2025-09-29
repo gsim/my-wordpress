@@ -2744,7 +2744,7 @@ function trailingslashit( $string ) {
  * @return string String without the trailing slashes.
  */
 function untrailingslashit( $string ) {
-	return rtrim( $string, '/\\' );
+	return rtrim( (string)$string, '/\\' );
 }
 
 /**
@@ -5329,7 +5329,7 @@ function normalize_whitespace( $str ) {
  * @return string The processed string.
  */
 function wp_strip_all_tags( $string, $remove_breaks = false ) {
-	$string = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $string );
+	$string = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', (string)$string );
 	$string = strip_tags( $string );
 
 	if ( $remove_breaks ) {

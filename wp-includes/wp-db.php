@@ -3027,7 +3027,7 @@ class wpdb {
 		}
 
 		// We don't need to check the collation for queries that don't read data.
-		$query = ltrim( $query, "\r\n\t (" );
+		$query = ltrim( (string) $query, "\r\n\t (" );
 		if ( preg_match( '/^(?:SHOW|DESCRIBE|DESC|EXPLAIN|CREATE)\s/i', $query ) ) {
 			return true;
 		}

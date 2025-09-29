@@ -11,9 +11,13 @@
  *
  * @package WordPress
  */
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+error_reporting(E_ALL);
 
 // Strip, trim, kses, special chars for string saves.
 foreach ( array( 'pre_term_name', 'pre_comment_author_name', 'pre_link_name', 'pre_link_target', 'pre_link_rel', 'pre_user_display_name', 'pre_user_first_name', 'pre_user_last_name', 'pre_user_nickname' ) as $filter ) {
+
 	add_filter( $filter, 'sanitize_text_field' );
 	add_filter( $filter, 'wp_filter_kses' );
 	add_filter( $filter, '_wp_specialchars', 30 );

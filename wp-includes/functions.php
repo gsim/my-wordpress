@@ -1715,85 +1715,86 @@ function do_favicon() {
  * @return bool Whether the site is already installed.
  */
 function is_blog_installed() {
-	global $wpdb;
+    global $wpdb;
 
-	/*
-	 * Check cache first. If options table goes away and we have true
-	 * cached, oh well.
-	 */
-	if ( wp_cache_get( 'is_blog_installed' ) ) {
-		return true;
-	}
+    if ( wp_cache_get( 'is_blog_installed' ) ) {
+        return true;
+    }
 
-	$suppress = $wpdb->suppress_errors();
-	if ( ! wp_installing() ) {
-		$alloptions = wp_load_alloptions();
-	}
-	// If siteurl is not set to autoload, check it specifically.
-	if ( ! isset( $alloptions['siteurl'] ) ) {
-		$installed = $wpdb->get_var( "SELECT option_value FROM $wpdb->options WHERE option_name = 'siteurl'" );
-	} else {
-		$installed = $alloptions['siteurl'];
-	}
-	$wpdb->suppress_errors( $suppress );
+    $suppress = $wpdb->suppress_errors();
+    $alloptions = null;
+    if ( ! wp_installing() ) {
+        $alloptions = wp_load_alloptions();
+        if ( ! empty( $wpdb->last_error ) ) {
+            $alloptions = null;
+        }
+    }
 
-	$installed = ! empty( $installed );
-	wp_cache_set( 'is_blog_installed', $installed );
+    if ( ! isset( $alloptions['siteurl'] ) ) {
+        $installed = $wpdb->get_var( "SELECT option_value FROM $wpdb->options WHERE option_name = 'siteurl'" );
+        if ( ! empty( $wpdb->last_error ) ) {
+            wp_cache_set( 'is_blog_installed', false );
+            $wpdb->suppress_errors( $suppress );
+            return false;
+        }
+    } else {
+        $installed = $alloptions['siteurl'];
+    }
 
-	if ( $installed ) {
-		return true;
-	}
+    $wpdb->suppress_errors( $suppress );
 
-	// If visiting repair.php, return true and let it take over.
-	if ( defined( 'WP_REPAIRING' ) ) {
-		return true;
-	}
+    $installed = ! empty( $installed );
+    wp_cache_set( 'is_blog_installed', $installed );
 
-	$suppress = $wpdb->suppress_errors();
+    if ( $installed ) {
+        return true;
+    }
 
-	/*
-	 * Loop over the WP tables. If none exist, then scratch installation is allowed.
-	 * If one or more exist, suggest table repair since we got here because the
-	 * options table could not be accessed.
-	 */
-	$wp_tables = $wpdb->tables();
-	foreach ( $wp_tables as $table ) {
-		// The existence of custom user tables shouldn't suggest an unwise state or prevent a clean installation.
-		if ( defined( 'CUSTOM_USER_TABLE' ) && CUSTOM_USER_TABLE == $table ) {
-			continue;
-		}
-		if ( defined( 'CUSTOM_USER_META_TABLE' ) && CUSTOM_USER_META_TABLE == $table ) {
-			continue;
-		}
+    if ( defined( 'WP_REPAIRING' ) ) {
+        return true;
+    }
 
-		$described_table = $wpdb->get_results( "DESCRIBE $table;" );
-		if (
-			( ! $described_table && empty( $wpdb->last_error ) ) ||
-			( is_array( $described_table ) && 0 === count( $described_table ) )
-		) {
-			continue;
-		}
+    $suppress = $wpdb->suppress_errors();
 
-		// One or more tables exist. This is not good.
+    $wp_tables = $wpdb->tables();
 
-		wp_load_translations_early();
+    foreach ( $wp_tables as $table ) {
+        if ( defined( 'CUSTOM_USER_TABLE' ) && CUSTOM_USER_TABLE == $table ) {
+            continue;
+        }
+        if ( defined( 'CUSTOM_USER_META_TABLE' ) && CUSTOM_USER_META_TABLE == $table ) {
+            continue;
+        }
 
-		// Die with a DB error.
-		$wpdb->error = sprintf(
-			/* translators: %s: Database repair URL. */
-			__( 'One or more database tables are unavailable. The database may need to be <a href="%s">repaired</a>.' ),
-			'maint/repair.php?referrer=is_blog_installed'
-		);
+        $described_table = $wpdb->get_results( "DESCRIBE $table;" );
+        if ( ! empty( $wpdb->last_error ) ) {
+            $described_table = false;
+        }
 
-		dead_db();
-	}
+        if (
+            ( ! $described_table && empty( $wpdb->last_error ) ) ||
+            ( is_array( $described_table ) && 0 === count( $described_table ) )
+        ) {
+            continue;
+        }
 
-	$wpdb->suppress_errors( $suppress );
+        wp_load_translations_early();
 
-	wp_cache_set( 'is_blog_installed', false );
+        $wpdb->error = sprintf(
+            __( 'One or more database tables are unavailable. The database may need to be <a href="%s">repaired</a>.' ),
+            'maint/repair.php?referrer=is_blog_installed'
+        );
 
-	return false;
+        dead_db();
+    }
+
+    $wpdb->suppress_errors( $suppress );
+
+    wp_cache_set( 'is_blog_installed', false );
+
+    return false;
 }
+
 
 /**
  * Retrieve URL with nonce added to URL query.
@@ -5794,22 +5795,22 @@ function validate_file( $file, $allowed_files = array() ) {
 	}
 
 	// More than one occurence of `../` is not allowed:
-	if ( preg_match_all( '#\.\./#', $file, $matches, PREG_SET_ORDER ) && ( count( $matches ) > 1 ) ) {
+	if ( preg_match_all( '#\.\./#', (string) $file, $matches, PREG_SET_ORDER ) && ( count( $matches ) > 1 ) ) {
 		return 1;
 	}
 
 	// `../` which does not occur at the end of the path is not allowed:
-	if ( false !== strpos( $file, '../' ) && '../' !== mb_substr( $file, -3, 3 ) ) {
+	if ( false !== strpos( (string) $file, '../' ) && '../' !== mb_substr( $file, -3, 3 ) ) {
 		return 1;
 	}
 
 	// Files not in the allowed file list are not allowed:
-	if ( ! empty( $allowed_files ) && ! in_array( $file, $allowed_files, true ) ) {
+	if ( ! empty( $allowed_files ) && ! in_array( (string) $file, $allowed_files, true ) ) {
 		return 3;
 	}
 
 	// Absolute Windows drive paths are not allowed:
-	if ( ':' === substr( $file, 1, 1 ) ) {
+	if ( ':' === substr( (string) $file, 1, 1 ) ) {
 		return 2;
 	}
 

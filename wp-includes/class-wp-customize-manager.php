@@ -4680,8 +4680,8 @@ final class WP_Customize_Manager {
 			$return_url = home_url( '/' );
 		}
 
-		$return_url_basename = wp_basename( parse_url( $this->return_url, PHP_URL_PATH ) );
-		$return_url_query    = parse_url( $this->return_url, PHP_URL_QUERY );
+		$return_url_basename = wp_basename( parse_url( (string) $this->return_url, PHP_URL_PATH ) );
+		$return_url_query    = parse_url( (string) $this->return_url, PHP_URL_QUERY );
 
 		if ( 'themes.php' === $return_url_basename && $return_url_query ) {
 			parse_str( $return_url_query, $query_vars );

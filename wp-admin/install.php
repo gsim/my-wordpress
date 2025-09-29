@@ -5,7 +5,8 @@
  * @package WordPress
  * @subpackage Administration
  */
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // Sanity check.
 if ( false ) {
 	?>
@@ -32,6 +33,7 @@ if ( false ) {
  */
 define( 'WP_INSTALLING', true );
 
+
 /** Load WordPress Bootstrap */
 require_once dirname( __DIR__ ) . '/wp-load.php';
 
@@ -43,6 +45,7 @@ require_once ABSPATH . 'wp-admin/includes/translation-install.php';
 
 /** Load wpdb */
 require_once ABSPATH . WPINC . '/wp-db.php';
+
 
 nocache_headers();
 
@@ -209,6 +212,7 @@ function display_setup_form( $error = null ) {
 </form>
 	<?php
 } // End display_setup_form().
+
 
 // Let's check to make sure WP isn't already installed.
 if ( is_blog_installed() ) {
